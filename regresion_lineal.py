@@ -81,3 +81,18 @@ def leer_archivo(filename):
 modelo = leer_archivo("data/x01.txt")
 modelo.normalizar()
 modelo.gradient_descent()
+
+import matplotlib.pyplot as plt
+
+x = modelo.x.flatten().tolist()
+y = modelo.y
+
+x2 = [i for i in range(8)]
+y2 = (modelo.theta * np.array(x2)).tolist()
+
+plt.plot(x,y,'ro',label='ejemplos')
+plt.plot(x2,y2)
+# plt.xlabel('Plot Number')
+# plt.ylabel('Important var')
+# plt.title('Interesting Graph')
+plt.show()
