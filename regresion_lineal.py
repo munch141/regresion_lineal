@@ -3,12 +3,12 @@ import numpy as np
 
 class Modelo():
     def __init__(self, x, y, rasgos, theta=[]):
-        self.x = np.mat(x)
+        self.x = x
         self.y = y
         self.rasgos = rasgos
 
         if not theta:
-            self.theta = [1.0 for i in x[0]]
+            self.theta = [1.0 for i in range(len(x[0]))]
         else:
             self.theta = theta
 
@@ -77,16 +77,7 @@ def leer_archivo(filename):
 
     return Modelo(x, y, rasgos)
 
-modelo = leer_archivo("data/x08.txt")
-modelo.imprimir()
 
+modelo = leer_archivo("data/x01.txt")
 modelo.normalizar()
-modelo.imprimir()
-
-print
-print "theta : ", modelo.theta
-
 modelo.gradient_descent()
-
-print
-print "theta : ", modelo.theta
