@@ -1,27 +1,92 @@
 import numpy as np
 
 
-def leer_archivo(file):
-    # falta esto
-    return file
+class Modelo():
+    def __init__(self, x, y, rasgos, theta=[]):
+        self.x = np.mat(x)
+        self.y = y
+        self.rasgos = rasgos
+
+        if not theta:
+            self.theta = [1.0 for i in x[0]]
+        else:
+            self.theta = theta
+
+    def imprimir(self):
+        for r in self.rasgos:
+            print r,
+        print
+        for i in range(len(self.x)):
+            print self.x[i], self.y[i]
+
+    def normalizar(self):
+        medias = np.mean(self.x, 0)  # medias de las columnas
+        desv = np.std(self.x, 0)     # desviaciones estandar de las columnas
+
+        self.x = self.x - medias
+        self.x = self.x / desv
+
+    def derivada(self, j):
+        r = 0.0
+
+        for i in range(len(self.x)):
+            r += (np.dot(self.theta, self.x[i])-self.y[i])*self.x[i][j]
+
+        return r/len(self.x)
+
+    def gradient_descent(self, alpha=0.01, max_it=1000):
+        temp = [0.0 for i in range(len(self.theta))]
+
+        while (i < max_it):
+            for j in range(len(self.x[0])):
+                temp[j] = self.theta[j] - alpha*self.derivada(j)
+            self.theta = temp[:]
+            i += 1
 
 
-def derivada(x, y, theta, j):
-    r = 0.0
+def leer_archivo(filename):
+    f = open(filename, 'r')
 
-    for i in range(len(x)):
-        r += (np.dot(theta, x[i])-y[i])*x[i][j]
+    while (True):
+        line = f.readline()
+        if line[0] != "#":
+            break
+        else:
+            continue
 
-    return r/len(x)
+    columnas = int(line.split()[0])
 
+    line = f.readline()
+    filas = int(line.split()[0])
 
-def gradient_descent(x, y, theta, alpha=0.01, max_it=1000):
-    temp = [0.0 for i in range(len(theta))]
+    line = f.readline()
+    rasgos = []
+    for i in range(columnas-1):
+        line = f.readline()
+        rasgos.append(line)
 
-    while (i < max_it):
-        for j in range(len(x)):
-            temp[j] = theta[j] - alpha*derivada(x, y, theta, j)
-        theta = temp[:]
-        i += 1
+    x = []
+    y = []
+    for i in range(filas):
+        line = f.readline()
+        split = line.split()
+        x.append([])
+        for j in range(columnas-2):
+            x[i].append(float(split[j+1]))
+        y.append(float(split[columnas-1]))
 
-    return theta
+    return Modelo(x, y, rasgos)
+
+modelo = leer_archivo("data/x08.txt")
+modelo.imprimir()
+
+modelo.normalizar()
+modelo.imprimir()
+
+print
+print "theta : ", modelo.theta
+
+modelo.gradient_descent()
+
+print
+print "theta : ", modelo.theta
