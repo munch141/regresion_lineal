@@ -1,4 +1,5 @@
 import modelo_lineal
+import numpy as np
 
 
 def leer_archivo(filename):
@@ -41,25 +42,40 @@ import matplotlib.pyplot as plt
 ###############################################################################
 modelo = leer_archivo("data/x01.txt")
 modelo.normalizar()
-costos = modelo.gradient_descent(0.1)
+costos = modelo.gradient_descent(0.1, 100000)
 #modelo.imprimir()
+
+# costos por iteracion de descenso del gradiente
+iteraciones = [i for i in range(len(costos))]
+
+f1 = plt.figure(1)
+plt.plot(iteraciones, costos, 'gx')
+plt.title("Datos sobre peso\nCurva de convergencia de la funcion de costo")
+plt.xlabel("Iteracion")
+plt.ylabel("Costo")
+plt.subplots_adjust(0.14)
+plt.savefig("plots/e2-1a.png")
 
 # ejemplos
 x = modelo.x
 y = modelo.y
 
 # curva de prediccion
-x2 = [i-1 for i in range(10)]
+flatten = lambda l: [item for sublist in l for item in sublist]
+x2 = np.arange(min(flatten(modelo.x)), max(flatten(modelo.x)), 0.5)
 y2 = map(lambda e: modelo.hipotesis(e), x2)
 
-# costos por iteracion de descenso del gradiente
-iteraciones = [i for i in range(len(costos))]
-
-plt.plot(x, y, 'ro', label='ejemplos')
-plt.plot(x2, y2, label='prediccion')
-#plt.plot(iteraciones, costos)
+f2 = plt.figure(num=2, figsize=(6, 4), dpi=180)
+plt.plot(x, y, 'ro', label='ejemplos', markersize=1.3)
+plt.plot(x2, y2, label='prediccion', linewidth=1)
+plt.xlabel(modelo.rasgos[0])
+plt.ylabel(modelo.rasgos[1])
 plt.legend()
-plt.show()
+plt.subplots_adjust(0.14)
+plt.savefig("plots/e2-1b.png")
+
+#plt.show()
+
 
 ###############################################################################
 # DATOS SOBRE MORTALIDAD (1.2)
@@ -70,5 +86,14 @@ costos = modelo.gradient_descent(0.1)
 #modelo.imprimir()
 
 iteraciones = [i for i in range(len(costos))]
-#plt.plot(iteraciones, costos)
+
+f3 = plt.figure(3)
+plt.plot(iteraciones, costos, 'gx')
+plt.title("Datos sobre mortalidad\nCurva de convergencia de la funcion de costo")
+plt.xlabel("Iteracion")
+plt.ylabel("Costo")
+plt.subplots_adjust(0.14)
+plt.savefig("plots/e2-2a.png")
+
 #plt.show()
+#raw_input()
