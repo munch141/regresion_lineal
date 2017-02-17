@@ -12,11 +12,11 @@ class Modelo():
             self.theta = theta
 
     def imprimir(self):
-        print ("rasgos: ", self.rasgos)
-        print ("theta: ", self.theta)
-        print ("ejemplos:")
+        print "rasgos: ", self.rasgos
+        print "theta: ", self.theta
+        print "ejemplos:"
         for i in range(len(self.x)):
-            print(self.x[i], self.y[i])
+            print self.x[i], self.y[i]
 
     def normalizar(self):
         medias = np.mean(self.x, 0)  # medias de las columnas
