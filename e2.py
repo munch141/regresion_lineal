@@ -51,15 +51,16 @@ y = modelo.y
 
 # curva de prediccion
 x2 = [i-1 for i in range(10)]
-h = map(lambda e: modelo.hipotesis(e), x2)
+y2 = map(lambda e: modelo.hipotesis(e), x2)
 
 # costos por iteracion de descenso del gradiente
 iteraciones = [i for i in range(len(costos))]
 
-#plt.plot(x, y, 'ro')
-#plt.plot(x2, y2)
+plt.plot(x, y, 'ro', label='ejemplos')
+plt.plot(x2, y2, label='prediccion')
 #plt.plot(iteraciones, costos)
-#plt.show()
+plt.legend()
+plt.show()
 
 ###############################################################################
 # DATOS SOBRE MORTALIDAD (1.2)
