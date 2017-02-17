@@ -40,6 +40,13 @@ class Modelo():
 
         return r/len(self.x)
 
+    def costo(self):
+        r = 0.0
+        for i in range(len(self.x)):
+            r += (self.hipotesis(self.x[i])-self.y[i])**2
+
+        return r/(2*len(self.x))
+
     def gradient_descent(self, alpha=0.01, max_it=1000):
         temp = [0.0 for i in range(len(self.theta))]
         J = []
@@ -51,10 +58,3 @@ class Modelo():
             J.append(self.costo())
             i += 1
         return J
-
-    def costo(self):
-        r = 0.0
-        for i in range(len(self.x)):
-            r += (self.hipotesis(self.x[i])-self.y[i])**2
-
-        return r/(2*len(self.x))
