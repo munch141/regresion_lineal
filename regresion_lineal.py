@@ -25,6 +25,7 @@ class Modelo():
 
         self.x = self.x - medias
         self.x = self.x / desv
+        self.x = self.x.tolist()
 
     def derivada(self, j):
         r = 0.0
@@ -84,7 +85,7 @@ modelo.gradient_descent()
 
 import matplotlib.pyplot as plt
 
-x = modelo.x.flatten().tolist()
+x = modelo.x
 y = modelo.y
 
 x2 = [i for i in range(8)]
