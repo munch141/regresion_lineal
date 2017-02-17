@@ -12,12 +12,11 @@ class Modelo():
             self.theta = theta
 
     def imprimir(self):
-        print "rasgos: ", self.rasgos
-        print "theta: ", self.theta
-        print
-        print "ejemplos:"
+        print ("rasgos: ", self.rasgos)
+        print ("theta: ", self.theta)
+        print ("ejemplos:")
         for i in range(len(self.x)):
-            print (self.x[i], self.y[i])
+            print(self.x[i], self.y[i])
 
     def normalizar(self):
         medias = np.mean(self.x, 0)  # medias de las columnas
@@ -50,6 +49,7 @@ class Modelo():
     def gradient_descent(self, alpha=0.01, max_it=1000):
         temp = [0.0 for i in range(len(self.theta))]
         J = []
+        i = 0
 
         while (i < max_it):
             for j in range(len(self.theta)):

@@ -34,6 +34,7 @@ def leer_archivo(filename):
 
     return modelo_lineal.Modelo(x, y, rasgos)
 
+import matplotlib.pyplot as plt
 
 ###############################################################################
 # DATOS SOBRE PESO (1.1)
@@ -42,8 +43,6 @@ modelo = leer_archivo("data/x01.txt")
 modelo.normalizar()
 costos = modelo.gradient_descent(0.1)
 #modelo.imprimir()
-
-import matplotlib.pyplot as plt
 
 # ejemplos
 x = modelo.x
@@ -68,7 +67,7 @@ plt.show()
 modelo = leer_archivo("data/x08.txt")
 modelo.normalizar()
 costos = modelo.gradient_descent(0.1)
-modelo.imprimir()
+#modelo.imprimir()
 
 iteraciones = [i for i in range(len(costos))]
 #plt.plot(iteraciones, costos)
