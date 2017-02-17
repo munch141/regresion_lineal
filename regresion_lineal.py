@@ -92,8 +92,5 @@ x2 = [i for i in range(8)]
 y2 = (modelo.theta * np.array(x2)).tolist()
 
 plt.plot(x,y,'ro',label='ejemplos')
-plt.plot(x2,y2)
-# plt.xlabel('Plot Number')
-# plt.ylabel('Important var')
-# plt.title('Interesting Graph')
+plt.plot(x2,y2,label='predicción')
 plt.show()
